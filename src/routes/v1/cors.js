@@ -18,7 +18,8 @@ async function routes(fastify, options) {
       /proxy\.cubari\.moe/,
       /jest\.testing\.local/,
       /localhost/,
-      /192\.168\.100\.3/
+      /192\.168\.100\.3/,
+      /zennomi-services\.onrender\.com/
     ],
   });
 
