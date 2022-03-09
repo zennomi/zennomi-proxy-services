@@ -18,13 +18,14 @@ async function routes(fastify, options) {
       /proxy\.cubari\.moe/,
       /jest\.testing\.local/,
       /localhost/,
+      /192\.168\.100\.3/
     ],
   });
 
   const callback = (request, reply) => {
     const decodedUrl = normalizeUrl(base64UrlDecode(request.params.url));
     const header = getRefererHeader(request.url, decodedUrl);
-
+    console.log(decodedUrl);
     if (
       !("origin" in request.headers) &&
       !("x-requested-with" in request.headers)

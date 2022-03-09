@@ -4,7 +4,7 @@
   "description": "Cubari proxy services.",
   "scripts": {
     "start": "pm2-runtime start ecosystem.config.js --env production",
-    "dev": "node index.js",
+    "dev": "nodemon index.js",
     "test": "jest"
   },
   "license": "MIT",
@@ -19,5 +19,8 @@
   },
   "engines": {
     "node": "16.x"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
