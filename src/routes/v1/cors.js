@@ -19,7 +19,8 @@ async function routes(fastify, options) {
       /jest\.testing\.local/,
       /localhost/,
       /192\.168\.100\.3/,
-      /zennomi-services\.onrender\.com/
+      /zennomi-services\.onrender\.com/,
+      /zennomi\.web\.app/
     ],
   });
 
