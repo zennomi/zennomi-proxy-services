@@ -12,6 +12,7 @@ const ALLOWED_ORIGIN = [
   /zennomi-services\.onrender\.com/,
   /zenno\.moe/,
   /cors-manga\.web\.app/,
+  /web\.app/
 ]
 
 const INJECTED_STATUS_HEADER = "x-content-retrieved";
