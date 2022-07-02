@@ -6,11 +6,26 @@ const { proxy } = require("fast-proxy")({
   },
 });
 
+const ALLOWED_ORIGIN = [
+  /localhost/,
+  /192\.168\.100/,
+  /zennomi-services\.onrender\.com/,
+  /zenno.moe/,
+]
+
 const INJECTED_STATUS_HEADER = "x-content-retrieved";
 
 const rewriteRequestHeadersHandler = (header) => {
   return (req, headers) => {
     const requestHeaders = { ...headers, referer: header };
+    delete requestHeaders["x-forwarded-host"];
+    return requestHeaders;
+  };
+};
+
+const rewriteV2RequestHeadersHandler = (header) => {
+  return (req, headers) => {
+    const requestHeaders = { ...headers, "origin": "cubari", "x-requested-with": "cubari" };
     delete requestHeaders["x-forwarded-host"];
     return requestHeaders;
   };
@@ -53,6 +68,8 @@ const onResponseHandler = (errorMsg, reply, cacheHeaders) => {
 module.exports = {
   proxy,
   rewriteRequestHeadersHandler,
+  rewriteV2RequestHeadersHandler,
   rewriteHeadersHandler,
   onResponseHandler,
+  ALLOWED_ORIGIN,
 };

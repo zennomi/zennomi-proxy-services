@@ -1,16 +1,16 @@
 const {
   getRefererHeader,
-  base64UrlDecode,
-  normalizeUrl,
   getCacheHeaders,
 } = require("../../utils");
 const {
   proxy,
-  rewriteRequestHeadersHandler,
+  rewriteV2RequestHeadersHandler,
   rewriteHeadersHandler,
   onResponseHandler,
   ALLOWED_ORIGIN,
 } = require("../../proxy");
+
+const V2_CORS_URL = "https://services.f-ck.me"
 
 async function routes(fastify, options) {
   fastify.register(require("fastify-cors"), {
@@ -18,7 +18,7 @@ async function routes(fastify, options) {
   });
 
   const callback = (request, reply) => {
-    const decodedUrl = normalizeUrl(base64UrlDecode(request.params.url));
+    const decodedUrl = `${V2_CORS_URL}/v2/cors/${request.params.url}`;
     const header = getRefererHeader(request.url, decodedUrl);
 
     console.log(decodedUrl);
@@ -32,7 +32,7 @@ async function routes(fastify, options) {
     }
 
     return proxy(request.raw, reply.raw, decodedUrl, {
-      rewriteRequestHeaders: rewriteRequestHeadersHandler(header),
+      rewriteRequestHeaders: rewriteV2RequestHeadersHandler(header),
       rewriteHeaders: rewriteHeadersHandler(
         (headers) => !(headers["content-type"] || "").startsWith("image"),
         ([key, _]) => key.toLowerCase().startsWith("content")
@@ -55,6 +55,6 @@ async function routes(fastify, options) {
 module.exports = {
   routes,
   opts: {
-    prefix: "/v1/cors",
+    prefix: "/v2/cors",
   },
 };

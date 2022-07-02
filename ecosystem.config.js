@@ -8,21 +8,11 @@ module.exports = {
       exec_mode: "cluster",
       env: {
         NODE_ENV: "development",
+        FLARESOLVERR_SESSION: "sess",
       },
       env_production: {
         NODE_ENV: "production",
-      },
-    },
-    {
-      name: "keep-alive",
-      script: "ping.js",
-      cwd: "./",
-      instances: 1,
-      env: {
-        NODE_ENV: "development",
-      },
-      env_production: {
-        NODE_ENV: "production",
+        FLARESOLVERR_SESSION: "sess",
       },
     },
   ],
